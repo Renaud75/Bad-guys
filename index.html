@@ -3,8 +3,13 @@
 <html>
 
 <head>
-  <title>Ma page d'accueil</title>
-  <link rel="stylesheet" href="css/style.css">
+  	<title>Ma page d'accueil</title>
+  	<link rel="stylesheet" href="css/style.css">
+  	    <title>Display map navigation controls</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+
 </head>
 
 <body>
@@ -12,9 +17,22 @@
 	  <div class="container">
 	    <h1>Welcome to a better world</h1>
 	    <h2>Any vilains to get rid of ? !</h2>
-	    <a href="" class="btn-blue">let's kick some asses !</a>
+	    <a href="#where"Where" class="btn-blue">let's kick some asses !</a>
 	  </div>
 	</div>
+
+	<div class="container">
+		<h1>Hello</h1>
+		<h2>This is Captain America</h2>
+		<img src="images/boby.jpg" class="avatar">
+		<h2>You're in trouble ?</h2>
+
+		<a href="#" class="btn-green">Call me now !</a>
+	</div>
+
+	<div class="container">
+	<div id="where"> </div>
+	<h2>Do you recognise your Vilain ?</h2>
 	<div class="cards">
 		<div class="card">
 			<a href="#ancre1" title="Le <joker"><img src="images/vilain1.png" alt="Le Joker"></a>
@@ -41,15 +59,53 @@
 			<h3>Voldemort</h3>
 		</div>
 	</div>
-	<div class="container">
-		<h1>Hello</h1>
-		<h2>This is Captain America</h2>
-		<img src="images/boby.jpg" class="avatar">
-		<h2>You're in trouble ?</h2>
-
-		<a href="#" class="btn-green">Call me now !</a>
 	</div>
-		<div class="profile">
+
+	<div class="container">
+		
+		<h2>Let's find our Vilain !</h2>
+		<div id='map' style='width: 900px; height: 300px;'></div>
+			<div id='menu'>
+			    <input id='basic' type='radio' name='rtoggle' value='basic' checked='checked'>
+			    <label for='basic'>basic</label>
+			    <input id='streets' type='radio' name='rtoggle' value='streets'>
+			    <label for='streets'>streets</label>
+			    <input id='bright' type='radio' name='rtoggle' value='bright'>
+			    <label for='bright'>bright</label>
+			    <input id='light' type='radio' name='rtoggle' value='light'>
+			    <label for='light'>light</label>
+			    <input id='dark' type='radio' name='rtoggle' value='dark'>
+			    <label for='dark'>dark</label>
+			    <input id='satellite' type='radio' name='rtoggle' value='satellite'>
+			    <label for='satellite'>satellite</label>
+			</div>
+			<script>
+			mapboxgl.accessToken = 'pk.eyJ1Ijoicm5vNzUiLCJhIjoiY2pxcnN0eml0MDA0YzN4cWNzem04cDJnNyJ9.uYzGvUrgcUaADYcd4gI6ow';
+			var map = new mapboxgl.Map({
+			    container: 'map',
+			    style: 'mapbox://styles/mapbox/basic-v9',
+			    zoom: 13,
+			    center: [4.899, 52.372]
+			});
+
+			var layerList = document.getElementById('menu');
+			var inputs = layerList.getElementsByTagName('input');
+
+			function switchLayer(layer) {
+			    var layerId = layer.target.id;
+			    map.setStyle('mapbox://styles/mapbox/' + layerId + '-v9');
+			}
+
+			for (var i = 0; i < inputs.length; i++) {
+			    inputs[i].onclick = switchLayer;
+			}
+			map.addControl(new mapboxgl.NavigationControl());
+			</script>
+	</div>
+
+	<div class="container">
+		<h2> We already have some Vilain's CVs</h2>
+	<div class="profile">
 			<<div id="ancre1"></div>
 			<img src="images/vilain1.png" alt="Le Joker">
 			<h3>Le Joker</h3>
@@ -57,15 +113,16 @@
 			<h4>A rare vilain, with extreme paranoiac and very high predictive CPU
 			A true dangers for potential competitors
 			Stay away or bend the knees !</h3>
-		<div class="profile">
+	</div>
+	<div class="profile">
 			<<div id="ancre2"></div>
 			<img src="images/vilain6.jpg" alt="Voldemort">
 			<h3>Voldemort</h3>
 			<h3></h3>
 			<h4>A rare vilain, with extreme paranoiac and very high predictive CPU
 			A true dangers for potential competitors
-			Stay away or bend the knees !</h3>
-		</div>	
+			Stay away or bend the knees !</h3>	
+	</div>
 	</div>
 
 </body>
